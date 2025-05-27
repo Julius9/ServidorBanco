@@ -1,5 +1,6 @@
 from flask import Flask, request
 from random import choice
+import os
 import json
 
 class Auxiliar:
@@ -127,4 +128,8 @@ def respuesta_ingeniosa():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=4444)
+    # Para OnRender, el puerto se obtiene de la variable de entorno PORT
+    # y el host debe ser '0.0.0.0' para ser accesible externamente.
+    port = int(os.environ.get("PORT", 5000)) # OnRender asignará un puerto
+    # debug=False es importante para producción.
+    app.run(host="0.0.0.0", port=port, debug=False)
